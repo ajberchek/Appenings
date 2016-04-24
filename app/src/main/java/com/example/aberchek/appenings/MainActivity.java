@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
         JSONObject jArr = dp.getJsonArr();
         while((jArr = dp.getJsonArr()) == null)
         {
