@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<happening> data =  new ArrayList<happening>();
+    private ArrayList<String> dummy = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+
         ListView lv = (ListView) findViewById(R.id.listView);
 
-        lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
+       // lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
+        lv.setAdapter(new MyListAdaper(this, R.layout.list_item, dummy));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,14 +71,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillData(){
         for (int i = 0; i< 100; i++)
-            data.getTitle(i);
+            dummy.add("Index: "+ i + 1);
 
     }
-    private class MyListAdaper extends ArrayAdapter<happening> {
-        private int layout;
-        private ArrayList<happening> mObjects;
 
-        private MyListAdaper(Context context, int resource, ArrayList<happening> objects) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    private class MyListAdaper extends ArrayAdapter<String> {
+        private int layout;
+        private ArrayList<String> mObjects;
+
+        private MyListAdaper(Context context, int resource, ArrayList<String> objects) {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
@@ -88,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
                 convertView.setTag(viewHolder);
             }
+            mainViewholder.title.setText(getItem(position));
 
 
             return convertView;
@@ -96,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         public class ViewHolder {
 
-            ImageView thumbnail;
+           // ImageView thumbnail;
             TextView title;
             // Button button;
         }
