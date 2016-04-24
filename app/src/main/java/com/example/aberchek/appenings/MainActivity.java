@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
     private ArrayList<happening> data =  new ArrayList<happening>();
     private ArrayList<String> titles = new ArrayList<String>();
     private ArrayList<String> dateTime = new ArrayList<>();
@@ -50,7 +51,16 @@ public class MainActivity extends AppCompatActivity {
             Log.d("EventList",eventArr.toString());
 
             happeningBuilder happBuild = new happeningBuilder(eventArr);
+
+            ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
             data = happBuild.buildHappeningArr();
+
+            searcher searcher = new searcher();
+
+            ArrayList<happening> hasFood = searcher.getValidSearch("FOOD",listOfHappenings);
+
+            boolean test = true;
+            
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -75,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
     }
@@ -111,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
+
                 viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
                 viewHolder.dateTime = (TextView)convertView.findViewById(R.id.dateTimeText);
 

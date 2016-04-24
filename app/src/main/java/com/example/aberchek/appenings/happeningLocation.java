@@ -21,4 +21,17 @@ public class happeningLocation {
         return link;
     }
 
+    public boolean hasSubstring(String ToSearch)
+    {
+        if(address != null && address.toLowerCase().contains(ToSearch.toLowerCase()))
+        {
+            return true;
+        }
+        else if(link != null && link.toLowerCase().contains(ToSearch.toLowerCase()))
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
