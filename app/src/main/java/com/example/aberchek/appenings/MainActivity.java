@@ -117,6 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
+            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                }
+            });
 
             mainViewholder.title.setText(titles.get(position));
             mainViewholder.dateTime.setText(dateTime.get(position));
