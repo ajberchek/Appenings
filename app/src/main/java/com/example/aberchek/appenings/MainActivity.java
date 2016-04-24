@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<happening> hasENGR = searcher.getValidSearch("ENGR", listOfHappenings);
             ArrayList<happening> hasConcert = searcher.getValidSearch("CONCERT", listOfHappenings);
 
-            /*
+
             HashMap<String, searchKeyWord> toSearch = searcher.getToSearchForMap();
             toSearch.get("FOOD").setSelected(true);
             toSearch.get("ENGR").setSelected(true);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             boolean test = true;
 
             allHapppeningToSearch = searcher.searchAllSelected(listOfHappenings);
-            */
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -104,13 +104,14 @@ public class MainActivity extends AppCompatActivity {
             urlLink.add(filtered_data.get(i).getLink());
             cost.add(filtered_data.get(i).getCost());
         }
+        keyUpdate();
 
 
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, urlLink));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, cost));
-
+        lv.setAdapter(new MyListAdapter(this, R.layout.activity_main,sideBar));
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //if()
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void keyUpdate(ArrayList<happening> global_data){
+    public void keyUpdate(){
 
         HashMap<String, searchKeyWord> searchVals = searcher.getToSearchForMap();
         for(String s : searchVals.keySet())
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             searchVals.put(s,searchVals.get(s));
             searcher.setToSearchForMap(searchVals);
             sideBar.add(key);
-            //filtered_data = searcher.searchAllSelected(global_data);
+            filtered_data = searcher.searchAllSelected(global_data);
 
 
         }
@@ -172,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.title = (TextView) convertView.findViewById(R.id.titleText);
                 viewHolder.dateTime = (TextView)convertView.findViewById(R.id.dateTimeText);
                 viewHolder.cost = (TextView)convertView.findViewById(R.id.costText);
+                //viewHolder.sideBar = (TextView)convertView.findViewById(R.id.);
 
                 convertView.setTag(viewHolder);
             }

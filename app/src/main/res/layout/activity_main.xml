@@ -5,7 +5,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +16,12 @@
     tools:context="com.example.aberchek.appenings.MainActivity"
     android:id="@+id/drawer_layout">
 
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,11 +29,8 @@
         android:layout_weight="1"
         android:transitionGroup="false" />
 
-</LinearLayout>
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+</RelativeLayout>
+
     <ListView android:id="@+id/left_drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
@@ -37,5 +40,6 @@
         android:dividerHeight="0dp"
         android:background="#111"
         tools:listitem="@android:layout/simple_list_item_1"/>
+
 
 </android.support.v4.widget.DrawerLayout>
