@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.EventLogTags;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> dateTime = new ArrayList<>();
     private ArrayList<String> urlLink = new ArrayList<String>();
     private ArrayList<String> cost = new ArrayList<String>();
+    private ArrayList<String> description = new ArrayList<String>();
     private ArrayList<String > sideBar = new ArrayList<String>();
 
 
@@ -92,21 +95,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         for (int i = 0; i < filtered_data.size(); i++) {
-            titles.add(filtered_data.get(i).getTitle());
-            dateTime.add(filtered_data.get(i).getTimeDate());
+            titles.add("Title: " + filtered_data.get(i).getTitle());
+            dateTime.add("When: " + filtered_data.get(i).getTimeDate());
             urlLink.add(filtered_data.get(i).getLink());
-            cost.add(filtered_data.get(i).getCost());
+
+            String costToAdd = filtered_data.get(i).getCost();
+            if(costToAdd.equals(""))
+            {
+                costToAdd = "0";
+            }
+
+            cost.add("Cost: " + costToAdd);
+            description.add("Description: " + filtered_data.get(i).getDescription());
+
         }
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, urlLink));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, cost));
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, description));
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                goToURI(urlLink.get(position));
+                goToURI(urlLink.get(position),description.get(position));
             }
         });
 
@@ -144,13 +157,15 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.title = (TextView) convertView.findViewById(R.id.titleText);
                 viewHolder.dateTime = (TextView)convertView.findViewById(R.id.dateTimeText);
                 viewHolder.cost = (TextView)convertView.findViewById(R.id.costText);
+                viewHolder.description = (TextView)convertView.findViewById(R.id.descriptionText);
 
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.title.setText(titles.get(position) + "\n");
+            mainViewholder.title.setText(titles.get(position));
             mainViewholder.dateTime.setText(dateTime.get(position));
             mainViewholder.cost.setText(cost.get(position));
+            //mainViewholder.description.setText(description.get(position));
 
 
 
@@ -165,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             TextView title;
             TextView dateTime;
             TextView cost;
+            TextView description;
             ListView filter;
         }
     }
@@ -188,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Start url stuff
 
-    public void goToURI(String link){
+    public void goToURI(String link, String description){
         Log.i("Link",link);
 
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(link));
@@ -197,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
+            //Make a toast of the description
             e.printStackTrace();
         }
     }
