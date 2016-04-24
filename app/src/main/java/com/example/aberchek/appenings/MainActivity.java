@@ -1,6 +1,7 @@
 package com.example.aberchek.appenings;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -50,8 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ((Button)findViewById(R.id.engrBtn)).setOnClickListener(this);
         ((Button)findViewById(R.id.sportBtn)).setOnClickListener(this);
         ((Button)findViewById(R.id.allBtn)).setOnClickListener(this);
-        
 
+        //Set the proper colors
+        ((Button) findViewById(R.id.foodBtn)).setTextColor(Color.RED);
+        ((Button) findViewById(R.id.engrBtn)).setTextColor(Color.RED);
+        ((Button) findViewById(R.id.sportBtn)).setTextColor(Color.RED);
+        ((Button) findViewById(R.id.allBtn)).setTextColor(Color.GREEN);
 
 
 
@@ -73,7 +78,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             happeningBuilder happBuild = new happeningBuilder(eventArr);
 
             ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
-            global_data = happBuild.buildHappeningArr();
+            //global_data = happBuild.buildHappeningArr();
+            ArrayList<happening> toAdd = happBuild.buildHappeningArr();
+            for(int i = toAdd.size()-1; i >= 0; --i)
+            {
+                global_data.add(toAdd.get(i));
+            }
+
 
             searcher searcher = new searcher();
 
@@ -127,6 +138,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
             hm.get("FOOD").toggleSelected();
+            if(hm.get("FOOD").isSelected()) {
+                ((Button) findViewById(R.id.foodBtn)).setTextColor(Color.GREEN);
+            }
+            else
+            {
+                ((Button) findViewById(R.id.foodBtn)).setTextColor(Color.RED);
+            }
+
             search.setToSearchForMap(hm);
             filtered_data = search.searchAllSelected(global_data);
             titles.clear();
@@ -140,6 +159,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
             hm.get("ENGR").toggleSelected();
+            if(hm.get("ENGR").isSelected()) {
+                ((Button) findViewById(R.id.engrBtn)).setTextColor(Color.GREEN);
+            }
+            else
+            {
+                ((Button) findViewById(R.id.engrBtn)).setTextColor(Color.RED);
+            }
             search.setToSearchForMap(hm);
             filtered_data = search.searchAllSelected(global_data);
             titles.clear();
@@ -152,6 +178,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
             hm.get("SPORT").toggleSelected();
+            if(hm.get("SPORT").isSelected()) {
+                ((Button) findViewById(R.id.sportBtn)).setTextColor(Color.GREEN);
+            }
+            else
+            {
+                ((Button) findViewById(R.id.sportBtn)).setTextColor(Color.RED);
+            }
             search.setToSearchForMap(hm);
             filtered_data = search.searchAllSelected(global_data);
             titles.clear();
@@ -164,6 +197,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
             hm.get("ALL").toggleSelected();
+            if(hm.get("ALL").isSelected()) {
+                ((Button) findViewById(R.id.allBtn)).setTextColor(Color.GREEN);
+            }
+            else
+            {
+                ((Button) findViewById(R.id.allBtn)).setTextColor(Color.RED);
+            }
             search.setToSearchForMap(hm);
             filtered_data = search.searchAllSelected(global_data);
             titles.clear();

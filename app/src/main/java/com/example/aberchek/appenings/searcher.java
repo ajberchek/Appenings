@@ -16,7 +16,7 @@ public class searcher
     private String[] FoodSearches = {"Food","Ribs","barbeque","bbq","grill","ice cream","kettle corn","Lunch"};
     private String[] engineeringSearches = {"Robots","engineering","mechanical","computer","Google","environmental","material science","bio sensors"};
     private String[] concertSearches = {"Rapper","Concert","cowcella","Cowchella","music","Dj","dance",""};
-    private String[] sportSearches = {"Soccer","Football","Dodgeball","Volleyball","Basketball","athletics" };
+    private String[] sportSearches = {"Soccer","Football","Dodgeball","Volleyball","Basketball" };
     private String[] naturalscienceSearches = {"Chemistry","Earth System Science", "Biology","Physics","mathematics", "microbiology","cell","climate change", "water","soil","pollution",};
     private String[] socialscienceSearches = {"humanities","English","Cognitive Science","Anthropology","Economics","history","management","business","political science","Psychology","public health","sociology","spanish"};
 
