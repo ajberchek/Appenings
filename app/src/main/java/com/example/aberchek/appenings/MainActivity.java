@@ -3,6 +3,8 @@ package com.example.aberchek.appenings;
 import android.content.Context;
 import android.net.Uri;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ArrayList<happening> global_data =  new ArrayList<happening>();
     private ArrayList<happening> filtered_data = new ArrayList<happening>();
@@ -34,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String > sideBar = new ArrayList<String>();
     private searcher search = new searcher();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DataPuller dp = new DataPuller();
         dp.execute();
+
+        ((Button)findViewById(R.id.foodBtn)).setOnClickListener(this);
 
 
         JSONObject jArr = dp.getJsonArr();
@@ -86,8 +93,14 @@ public class MainActivity extends AppCompatActivity {
         }
         filtered_data = global_data;
         ListView lv = (ListView) findViewById(R.id.listView);
-        
+        Button fd = (Button) findViewById(R.id.foodBtn);
+
+
+
+
         filler();
+
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -123,6 +136,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void onClick(View v)
+    {
+        if(v == (Button)findViewById(R.id.foodBtn))
+        {
+            HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+            hm.get("FOOD").toggleSelected();
+            search.setToSearchForMap(hm);
+            filtered_data = search.searchAllSelected(global_data);
+            titles.clear();
+            dateTime.clear();
+            urlLink.clear();
+            cost.clear();
+            filler();
+        }
     }
 
     public void filler(){
