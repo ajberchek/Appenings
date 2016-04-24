@@ -31,6 +31,11 @@ public class happening {
         this.cost = cost;
     }
 
+    public happening()
+    {
+
+    }
+
     public String getTitle() {
         return Title;
     }
