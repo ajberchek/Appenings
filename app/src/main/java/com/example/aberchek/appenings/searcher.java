@@ -10,7 +10,8 @@ import java.util.List;
  */
 public class searcher
 {
-    private HashMap<String,String[]> toSearchForMap = new HashMap<String,String[]>();
+    private HashMap<String,searchKeyWord> toSearchForMap = new HashMap<String,searchKeyWord>();
+
 
     private String[] FoodSearches = {"Food","Ribs","barbeque","bbq","grill","ice cream","kettle corn"};
     private String[] engineeringSearches = {"Robots","engineering","mechanical","computer"};
@@ -18,16 +19,31 @@ public class searcher
 
     public searcher()
     {
-        toSearchForMap.put("FOOD",FoodSearches);
-        toSearchForMap.put("ENGR",engineeringSearches);
-        toSearchForMap.put("CONCERT",concertSearches);
+        toSearchForMap.put("FOOD",new searchKeyWord("FOOD",FoodSearches));
+        toSearchForMap.put("ENGR",new searchKeyWord("ENGR", engineeringSearches));
+        toSearchForMap.put("CONCERT",new searchKeyWord("CONCERT",concertSearches));
     }
 
-    public void readFileAndAdd(String filepath)
+    public HashMap<String, searchKeyWord> getToSearchForMap() {
+        return toSearchForMap;
+    }
+
+    public void setToSearchForMap(HashMap<String, searchKeyWord> toSearchForMap) {
+        this.toSearchForMap = toSearchForMap;
+    }
+
+    public ArrayList<String> getAllKeys()
     {
-
+        ArrayList<String> toReturn = new ArrayList<String>();
+        String[] elems = (String [])toSearchForMap.keySet().toArray();
+        for(int i = 0; i < elems.length; ++i)
+        {
+            toReturn.add(elems[i]);
+        }
+        return toReturn;
 
     }
+
 
     public ArrayList<happening> getNoDuplicates(ArrayList<happening> a, ArrayList<happening> b)
     {
@@ -69,7 +85,7 @@ public class searcher
 
     public ArrayList<happening> getValidSearch(String toSearchForKey, ArrayList<happening> toSearch)
     {
-        String[] toSearchFor = toSearchForMap.get(toSearchForKey);
+        String[] toSearchFor = toSearchForMap.get(toSearchForKey).getValue();
 
         ArrayList<happening> containsKeyword = new ArrayList<happening>();
         for(happening hap : toSearch)
