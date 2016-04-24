@@ -14,7 +14,9 @@ public class searcher
 
 
     private String[] FoodSearches = {"Food","Ribs","barbeque","bbq","grill","ice cream","kettle corn","Lunch"};
-    private String[] engineeringSearches = {"Robots","engineering","mechanical","computer","Google","environmental","material science","bio sensors"};
+    private String[] research = {"poster"};
+    private String[] competitions = {"tournament","competition","game","field","enemy","challenge","match"};
+    private String[] engineeringSearches = {"Robots","Maker","engineering","mechanical","computer","Google","environmental","material science","bio sensors"};
     private String[] concertSearches = {"Rapper","Concert","cowcella","Cowchella","music","Dj","dance",""};
     private String[] sportSearches = {"Soccer","Football","Dodgeball","Volleyball","Basketball" };
     private String[] naturalscienceSearches = {"Chemistry","Earth System Science", "Biology","Physics","mathematics", "microbiology","cell","climate change", "water","soil","pollution",};
@@ -25,6 +27,7 @@ public class searcher
     {
 
         toSearchForMap.put("FOOD",new searchKeyWord("FOOD",FoodSearches));
+        toSearchForMap.put("COMP",new searchKeyWord("COMP",competitions));
         toSearchForMap.put("ENGR",new searchKeyWord("ENGR", engineeringSearches));
         toSearchForMap.put("CONCERT",new searchKeyWord("CONCERT",concertSearches));
         toSearchForMap.put("SPORT", new searchKeyWord("SPORT",sportSearches));

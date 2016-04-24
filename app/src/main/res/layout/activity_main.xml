@@ -48,8 +48,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ENGR"
-        android:id="@+id/engrBtn"
+        android:text="Challenge"
+        android:id="@+id/compBtn"
         android:layout_alignTop="@+id/foodBtn"
         android:layout_toRightOf="@+id/foodBtn"
         android:layout_toEndOf="@+id/foodBtn" />
@@ -61,7 +61,7 @@
         android:text="SPORT"
         android:id="@+id/sportBtn"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/engrBtn" />
+        android:layout_toRightOf="@+id/compBtn" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

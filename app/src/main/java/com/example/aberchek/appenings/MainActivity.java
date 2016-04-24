@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,13 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dp.execute();
 
         ((Button)findViewById(R.id.foodBtn)).setOnClickListener(this);
-        ((Button)findViewById(R.id.engrBtn)).setOnClickListener(this);
+        ((Button)findViewById(R.id.compBtn)).setOnClickListener(this);
         ((Button)findViewById(R.id.sportBtn)).setOnClickListener(this);
         ((Button)findViewById(R.id.allBtn)).setOnClickListener(this);
 
         //Set the proper colors
         ((Button) findViewById(R.id.foodBtn)).setTextColor(Color.RED);
-        ((Button) findViewById(R.id.engrBtn)).setTextColor(Color.RED);
+        ((Button) findViewById(R.id.compBtn)).setTextColor(Color.RED);
         ((Button) findViewById(R.id.sportBtn)).setTextColor(Color.RED);
         ((Button) findViewById(R.id.allBtn)).setTextColor(Color.GREEN);
 
@@ -155,16 +153,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             filler();
             return;
         }
-        else if(v == (Button)findViewById(R.id.engrBtn))
+        else if(v == (Button)findViewById(R.id.compBtn))
         {
             HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
-            hm.get("ENGR").toggleSelected();
-            if(hm.get("ENGR").isSelected()) {
-                ((Button) findViewById(R.id.engrBtn)).setTextColor(Color.GREEN);
+            hm.get("COMP").toggleSelected();
+            if(hm.get("COMP").isSelected()) {
+                ((Button) findViewById(R.id.compBtn)).setTextColor(Color.GREEN);
             }
             else
             {
-                ((Button) findViewById(R.id.engrBtn)).setTextColor(Color.RED);
+                ((Button) findViewById(R.id.compBtn)).setTextColor(Color.RED);
             }
             search.setToSearchForMap(hm);
             filtered_data = search.searchAllSelected(global_data);
@@ -222,7 +220,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             titles.add(filtered_data.get(i).getTitle());
             dateTime.add(filtered_data.get(i).getTimeDate());
             urlLink.add(filtered_data.get(i).getLink());
-            cost.add(filtered_data.get(i).getCost());
+
+            String eventCost = filtered_data.get(i).getCost();
+            if(filtered_data.get(i).getCost().equals(""))
+            {
+                eventCost = "0";
+            }
+
+
+
+            cost.add(eventCost);
         }
 
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
