@@ -85,23 +85,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         filtered_data = global_data;
-
         ListView lv = (ListView) findViewById(R.id.listView);
-        ListView drawer = (ListView) findViewById(R.id.left_drawer);
-
-
-
-        for (int i = 0; i < filtered_data.size(); i++) {
-            titles.add(filtered_data.get(i).getTitle());
-            dateTime.add(filtered_data.get(i).getTimeDate());
-            urlLink.add(filtered_data.get(i).getLink());
-            cost.add(filtered_data.get(i).getCost());
-        }
-        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
-        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
-        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, urlLink));
-        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, cost));
-
+        
+        filler();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,6 +122,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void filler(){
+        ListView lv = (ListView) findViewById(R.id.listView);
+
+        for (int i = 0; i < filtered_data.size(); i++) {
+            titles.add(filtered_data.get(i).getTitle());
+            dateTime.add(filtered_data.get(i).getTimeDate());
+            urlLink.add(filtered_data.get(i).getLink());
+            cost.add(filtered_data.get(i).getCost());
+        }
+
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, urlLink));
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, cost));
 
     }
 
