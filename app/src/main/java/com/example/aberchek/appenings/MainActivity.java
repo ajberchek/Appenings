@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<happening> global_data =  new ArrayList<happening>();
-    private ArrayList<happening> data = new ArrayList<happening>();
+    private ArrayList<happening> filtered_data = new ArrayList<happening>();
     private ArrayList<String> titles = new ArrayList<String>();
     private ArrayList<String> dateTime = new ArrayList<>();
     private ArrayList<String> urlLink = new ArrayList<String>();
@@ -72,18 +72,18 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        filtered_data = global_data;
 
         ListView lv = (ListView) findViewById(R.id.listView);
         ListView drawer = (ListView) findViewById(R.id.left_drawer);
 
 
 
-        for (int i = 0; i < global_data.size(); i++) {
-            titles.add(global_data.get(i).getTitle());
-            dateTime.add(global_data.get(i).getTimeDate());
-            urlLink.add(global_data.get(i).getLink());
-            cost.add(global_data.get(i).getCost());
+        for (int i = 0; i < filtered_data.size(); i++) {
+            titles.add(filtered_data.get(i).getTitle());
+            dateTime.add(filtered_data.get(i).getTimeDate());
+            urlLink.add(filtered_data.get(i).getLink());
+            cost.add(filtered_data.get(i).getCost());
         }
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
