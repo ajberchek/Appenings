@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ((Button)findViewById(R.id.foodBtn)).setOnClickListener(this);
         ((Button)findViewById(R.id.engrBtn)).setOnClickListener(this);
         ((Button)findViewById(R.id.sportBtn)).setOnClickListener(this);
+        ((Button)findViewById(R.id.allBtn)).setOnClickListener(this);
         
 
 
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             urlLink.clear();
             cost.clear();
             filler();
+            return;
         }
         else if(v == (Button)findViewById(R.id.engrBtn))
         {
