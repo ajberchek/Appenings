@@ -12,6 +12,8 @@ public class searcher
 {
     private HashMap<String,String[]> toSearchForMap = new HashMap<String,String[]>();
 
+
+
     private String[] FoodSearches = {"Food","Ribs","barbeque","bbq","grill","ice cream","kettle corn"};
     private String[] engineeringSearches = {"Robots","engineering","mechanical","computer"};
     private String[] concertSearches = {"Rapper","Concert","cowcella","Cowchella"};
