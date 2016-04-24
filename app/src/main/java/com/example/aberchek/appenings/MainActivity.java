@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,9 +74,20 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<happening> hasENGR = searcher.getValidSearch("ENGR", listOfHappenings);
             ArrayList<happening> hasConcert = searcher.getValidSearch("CONCERT", listOfHappenings);
 
-            boolean test = true;
-            
+            /*
+            HashMap<String, searchKeyWord> toSearch = searcher.getToSearchForMap();
+            toSearch.get("FOOD").setSelected(true);
+            toSearch.get("ENGR").setSelected(true);
+            toSearch.get("CONCERT").setSelected(true);
 
+            searcher.setToSearchForMap(toSearch);
+
+            ArrayList<happening> allHapppeningToSearch = searcher.searchAllSelected(listOfHappenings);
+
+            boolean test = true;
+
+            allHapppeningToSearch = searcher.searchAllSelected(listOfHappenings);
+            */
         } catch (JSONException e) {
             e.printStackTrace();
         }
