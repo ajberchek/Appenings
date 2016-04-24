@@ -9,10 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.aberchek.appenings.MainActivity">
 
-    <ExpandableListView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/expandableListView"
+        android:id="@+id/listView"
         android:layout_weight="1" />
 
 </LinearLayout>
