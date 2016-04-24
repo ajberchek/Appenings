@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> dateTime = new ArrayList<>();
     private ArrayList<String> urlLink = new ArrayList<String>();
     private ArrayList<String> cost = new ArrayList<String>();
+    private ArrayList<String > sideBar = new ArrayList<String>();
 
 
     @Override
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ListView lv = (ListView) findViewById(R.id.listView);
+        ListView drawer = (ListView) findViewById(R.id.left_drawer);
 
 
 
@@ -135,13 +137,9 @@ public class MainActivity extends AppCompatActivity {
             }
             mainViewholder = (ViewHolder) convertView.getTag();
             mainViewholder.title.setText(titles.get(position) + "\n");
-            mainViewholder.dateTime.setText(dateTime.get(position) + "\n");
-            if (cost.get(position).equals(0)){
-                mainViewholder.cost.setText("$" +cost.get(position));
-            }else{
-                mainViewholder.cost.setText(cost.get(position));
+            mainViewholder.dateTime.setText(dateTime.get(position));
+            mainViewholder.cost.setText(cost.get(position));
 
-            }
 
 
 
@@ -154,9 +152,8 @@ public class MainActivity extends AppCompatActivity {
         public class ViewHolder {
             TextView title;
             TextView dateTime;
-            TextView desc;
-            TextView subID;
             TextView cost;
+            ListView filter;
         }
     }
 
