@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
             JSONArray eventArr = eventList.getJSONArray("events");
             Log.d("EventList",eventArr.toString());
 
+            happeningBuilder happBuild = new happeningBuilder(eventArr);
+            ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
+            
         } catch (JSONException e) {
             e.printStackTrace();
         }

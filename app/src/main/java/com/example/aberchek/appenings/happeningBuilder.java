@@ -1,5 +1,7 @@
 package com.example.aberchek.appenings;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,23 +34,13 @@ public class happeningBuilder
             happeningContact hc = new happeningContact(contactObjJSON.getString("name"), contactObjJSON.getString("phone"), contactObjJSON.getString("link"));
 
 
-            ArrayList<String> categoryArray = new ArrayList<String>();
-            JSONArray jsonArray = jsonObj.getJSONArray("categories");
-            for(int i = 0, count = jsonArray.length(); i< count; i++)
-            {
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    categoryArray.add(jsonObject.toString());
-                }
-                catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            JSONArray jsonArrayy = jsonObj.getJSONArray("categories");
+            Log.d("Categories are",jsonArrayy.toString());
 
-
+            String [] catArr = jsonArrayy.toString().replace("[","").replace("]","").replace("\"","").split(",");
 
             happening toReturn =
-                    new happening(jsonObj.getString("summary"),jsonObj.getString("subscriptionId"),jsonObj.getString("link"), jsonObj.getString("formattedDate"),hl,hc,(String[])categoryArray.toArray(),jsonObj.getString("description"),jsonObj.getString("cost"));
+                    new happening(jsonObj.getString("summary"),jsonObj.getString("subscriptionId"),jsonObj.getString("link"), jsonObj.getString("formattedDate"),hl,hc,catArr,jsonObj.getString("description"),jsonObj.getString("cost"));
             return toReturn;
         }
         catch (JSONException e) {
@@ -70,6 +62,7 @@ public class happeningBuilder
                 jsonObj = jsonArr.getJSONObject(i);
                 toReturn.add(buildHappening());
             } catch (JSONException e) {
+                Log.w("Error : ",jsonObj.toString());
                 e.printStackTrace();
             }
 
