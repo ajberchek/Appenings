@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<happening> data =  new ArrayList<happening>();
+    private ArrayList<happening> data =  null;
     private ArrayList<String> dummy = new ArrayList<>();
 
     @Override
@@ -50,23 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
             happeningBuilder happBuild = new happeningBuilder(eventArr);
             ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
+
+            searcher searcher = new searcher();
+
+            ArrayList<happening> hasFood = searcher.getValidSearch("FOOD",listOfHappenings);
+
+            boolean test = true;
             
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-
-        ListView lv = (ListView) findViewById(R.id.listView);
-
-       // lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
-        lv.setAdapter(new MyListAdaper(this, R.layout.list_item, dummy));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
     }
@@ -104,9 +99,14 @@ public class MainActivity extends AppCompatActivity {
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
+
+                viewHolder.title.setText("HI");
+
+
+                //iewHolder.title = new TextView("HI");
                 convertView.setTag(viewHolder);
             }
-            mainViewholder.title.setText(getItem(position));
+//            mainViewholder.title.setText(getItem(position));
 
 
             return convertView;
