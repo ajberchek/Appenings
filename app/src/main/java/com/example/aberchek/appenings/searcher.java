@@ -104,4 +104,17 @@ public class searcher
     }
 
 
+    public ArrayList<happening> searchAllSelected(ArrayList<happening> toSearch)
+    {
+        ArrayList<happening> toReturn = new ArrayList<happening>();
+        for(String key : toSearchForMap.keySet())
+        {
+            if(toSearchForMap.get(key).isSelected())
+            {
+                toReturn = getNoDuplicates(toReturn,getValidSearch(key, toSearch));
+            }
+        }
+        return toReturn;
+    }
+
 }
