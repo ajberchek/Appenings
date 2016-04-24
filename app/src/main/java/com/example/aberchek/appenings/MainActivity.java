@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> urlLink = new ArrayList<String>();
     private ArrayList<String> cost = new ArrayList<String>();
     private ArrayList<String > sideBar = new ArrayList<String>();
-
+    private searcher search = new searcher();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,33 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                goToURI(urlLink.get(position));
+                if(id == R.id.foodBtn)
+                {
+                    HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+                    hm.get("FOOD").toggleSelected();
+                    search.setToSearchForMap(hm);
+                    filtered_data = search.searchAllSelected(global_data);
+                    filler();
+                }
+                else if(id == R.id.engrBtn)
+                {
+                    HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+                    hm.get("ENGR").toggleSelected();
+                    search.setToSearchForMap(hm);
+                    filtered_data = search.searchAllSelected(global_data);
+                    filler();
+                }
+                else if(id == R.id.sportBtn)
+                {
+                    HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+                    hm.get("SPORT").toggleSelected();
+                    search.setToSearchForMap(hm);
+                    filtered_data = search.searchAllSelected(global_data);
+                    filler();
+                }
+                else {
+                    goToURI(urlLink.get(position));
+                }
             }
         });
 

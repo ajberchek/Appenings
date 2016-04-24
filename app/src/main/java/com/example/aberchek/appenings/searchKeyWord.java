@@ -30,4 +30,9 @@ public class searchKeyWord {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
+    public void toggleSelected()
+    {
+        isSelected = !isSelected;
+    }
 }
