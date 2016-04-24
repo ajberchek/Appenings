@@ -50,8 +50,9 @@
         android:layout_height="wrap_content"
         android:text="Engr Button"
         android:id="@+id/engrBtn"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/foodBtn"
+        android:layout_toRightOf="@+id/foodBtn"
+        android:layout_toEndOf="@+id/foodBtn" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -59,9 +60,20 @@
         android:layout_height="wrap_content"
         android:text="Sports Button"
         android:id="@+id/sportBtn"
-        android:layout_above="@+id/listView"
-        android:layout_alignRight="@+id/listView"
-        android:layout_alignEnd="@+id/listView" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/engrBtn" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/allBtn"
+        android:layout_alignTop="@+id/sportBtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/sportBtn"
+        android:layout_toEndOf="@+id/sportBtn" />
 
 </RelativeLayout>
 

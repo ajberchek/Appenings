@@ -19,6 +19,8 @@ public class searcher
     private String[] sportSearches = {"Soccer","Football","Dodgeball","Volleyball","Basketball","athletics" };
     private String[] naturalscienceSearches = {"Chemistry","Earth System Science", "Biology","Physics","mathematics", "microbiology","cell","climate change", "water","soil","pollution",};
     private String[] socialscienceSearches = {"humanities","English","Cognitive Science","Anthropology","Economics","history","management","business","political science","Psychology","public health","sociology","spanish"};
+
+    private String[] allString = {""};
     public searcher()
     {
 
@@ -28,6 +30,7 @@ public class searcher
         toSearchForMap.put("SPORT", new searchKeyWord("SPORT",sportSearches));
         toSearchForMap.put("NATURALSCIENCE", new searchKeyWord("NATURALSCIENCE",naturalscienceSearches));
         toSearchForMap.put("SOCIALSCIENCE", new searchKeyWord("SOCIALSCIENCE", socialscienceSearches));
+        toSearchForMap.put("ALL",new searchKeyWord("ALL",allString));
     }
 
     public HashMap<String, searchKeyWord> getToSearchForMap() {
