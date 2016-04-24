@@ -5,26 +5,23 @@
     android:weightSum="1">
 
     <TextView
-        android:layout_width="162dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Event: 0"
-        android:id="@+id/list_item_text"
+        android:text="Title: 0"
+        android:id="@+id/titleText"
         android:layout_toRightOf="@+id/list_item_thumbnail" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/dateTimeText"
-        android:layout_gravity="right" />
-
-    <Button
-        android:layout_width="wrap_content"
+        android:text="Date: 0"
+        android:id="@+id/dateTimeText" />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Go!"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:id="@+id/list_item_btn"
-        android:layout_gravity="right" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Free"
+        android:id="@+id/costText" />
 
 </LinearLayout>
