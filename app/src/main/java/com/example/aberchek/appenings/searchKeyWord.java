@@ -7,7 +7,7 @@ public class searchKeyWord {
 
     private String[] value;
     private String key;
-    private boolean isSelected;
+    private boolean isSelected = false;
 
 
     public searchKeyWord( String key, String[] value) {
