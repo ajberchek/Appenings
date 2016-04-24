@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +23,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<happening> data =  null;
-    private ArrayList<String> dummy = new ArrayList<>();
+
+    private ArrayList<happening> data =  new ArrayList<happening>();
+    private ArrayList<String> titles = new ArrayList<String>();
+    private ArrayList<String> dateTime = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DataPuller dp = new DataPuller();
         dp.execute();
-        fillData();
 
         JSONObject jArr = dp.getJsonArr();
         while((jArr = dp.getJsonArr()) == null)
@@ -49,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("EventList",eventArr.toString());
 
             happeningBuilder happBuild = new happeningBuilder(eventArr);
+
             ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
+            data = happBuild.buildHappeningArr();
 
             searcher searcher = new searcher();
 
@@ -57,21 +61,37 @@ public class MainActivity extends AppCompatActivity {
 
             boolean test = true;
             
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
+        ListView lv = (ListView) findViewById(R.id.listView);
+
+
+
+        for (int i = 0; i < data.size(); i++) {
+            titles.add(data.get(i).getTitle());
+            dateTime.add(data.get(i).getTimeDate());
+        }
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
     }
 
 
-    private void fillData(){
-        for (int i = 0; i< 100; i++)
-            dummy.add("Index: "+ i + 1);
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,13 +101,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private class MyListAdaper extends ArrayAdapter<String> {
+    private class MyListAdapter extends ArrayAdapter<String>{
+
         private int layout;
         private ArrayList<String> mObjects;
 
-        private MyListAdaper(Context context, int resource, ArrayList<String> objects) {
+
+        private MyListAdapter(Context context, int resource, ArrayList<String> objects) {
             super(context, resource, objects);
-            mObjects = objects;
+
+
             layout = resource;
         }
 
@@ -100,13 +123,17 @@ public class MainActivity extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
 
-                viewHolder.title.setText("HI");
+                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                viewHolder.dateTime = (TextView)convertView.findViewById(R.id.dateTimeText);
 
-
-                //iewHolder.title = new TextView("HI");
                 convertView.setTag(viewHolder);
             }
-//            mainViewholder.title.setText(getItem(position));
+            mainViewholder = (ViewHolder) convertView.getTag();
+
+            mainViewholder.title.setText(titles.get(position));
+            mainViewholder.dateTime.setText(dateTime.get(position));
+            //mainViewholder.title.setText(getItem(position));
+
 
 
             return convertView;
@@ -114,10 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         public class ViewHolder {
-
-           // ImageView thumbnail;
             TextView title;
-            // Button button;
+            Button button;
+            TextView dateTime;
         }
     }
     @Override
