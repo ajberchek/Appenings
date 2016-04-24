@@ -189,8 +189,16 @@ public class MainActivity extends AppCompatActivity {
     //Start url stuff
 
     public void goToURI(String link){
+        Log.i("Link",link);
+
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(link));
-        startActivity(browserIntent);
+        try {
+            startActivity(browserIntent);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
