@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +24,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<happening> data =  new ArrayList<happening>();
-    private ArrayList<String> dummy = new ArrayList<>();
+    private ArrayList<String> titles = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DataPuller dp = new DataPuller();
         dp.execute();
-        fillData();
 
         JSONObject jArr = dp.getJsonArr();
         while((jArr = dp.getJsonArr()) == null)
@@ -49,18 +49,20 @@ public class MainActivity extends AppCompatActivity {
             Log.d("EventList",eventArr.toString());
 
             happeningBuilder happBuild = new happeningBuilder(eventArr);
-            ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
-            
+            data = happBuild.buildHappeningArr();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-
         ListView lv = (ListView) findViewById(R.id.listView);
 
-       // lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
-        lv.setAdapter(new MyListAdaper(this, R.layout.list_item, dummy));
+        for (int i = 0; i < data.size(); i++) {
+            titles.add(data.get(i).getTitle());
+        }
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,11 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void fillData(){
-        for (int i = 0; i< 100; i++)
-            dummy.add("Index: "+ i + 1);
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,13 +84,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private class MyListAdaper extends ArrayAdapter<String> {
+    private class MyListAdapter extends ArrayAdapter<String>{
+
         private int layout;
         private ArrayList<String> mObjects;
 
-        private MyListAdaper(Context context, int resource, ArrayList<String> objects) {
+
+        private MyListAdapter(Context context, int resource, ArrayList<String> objects) {
             super(context, resource, objects);
-            mObjects = objects;
+
+
             layout = resource;
         }
 
@@ -104,9 +105,15 @@ public class MainActivity extends AppCompatActivity {
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
+                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+
                 convertView.setTag(viewHolder);
             }
-            mainViewholder.title.setText(getItem(position));
+            mainViewholder = (ViewHolder) convertView.getTag();
+
+            mainViewholder.title.setText(titles.get(position));
+            //mainViewholder.title.setText(getItem(position));
+
 
 
             return convertView;
@@ -114,10 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         public class ViewHolder {
-
-           // ImageView thumbnail;
             TextView title;
-            // Button button;
+            Button button;
         }
     }
     @Override
