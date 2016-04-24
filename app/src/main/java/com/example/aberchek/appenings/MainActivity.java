@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dp.execute();
 
         ((Button)findViewById(R.id.foodBtn)).setOnClickListener(this);
+        ((Button)findViewById(R.id.engrBtn)).setOnClickListener(this);
+        ((Button)findViewById(R.id.sportBtn)).setOnClickListener(this);
+        
+
+
 
 
         JSONObject jArr = dp.getJsonArr();
