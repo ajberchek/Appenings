@@ -11,10 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> urlLink = new ArrayList<String>();
     private ArrayList<String> cost = new ArrayList<String>();
     private ArrayList<String > sideBar = new ArrayList<String>();
+    private searcher searcher = new searcher();
+
 
 
     @Override
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
             global_data = happBuild.buildHappeningArr();
 
-            searcher searcher = new searcher();
+
 
             ArrayList<happening> hasFood = searcher.getValidSearch("FOOD",listOfHappenings);
             ArrayList<happening> hasENGR = searcher.getValidSearch("ENGR", listOfHappenings);
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         filtered_data = global_data;
 
         ListView lv = (ListView) findViewById(R.id.listView);
-        ListView drawer = (ListView) findViewById(R.id.left_drawer);
+        ListView sideBar_layout = (ListView) findViewById(R.id.left_drawer);
 
 
 
@@ -85,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             urlLink.add(filtered_data.get(i).getLink());
             cost.add(filtered_data.get(i).getCost());
         }
+
+
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, urlLink));
@@ -92,12 +101,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //if()
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 goToURI(urlLink.get(position));
             }
         });
 
+
+    }
+    public void keyUpdate(ArrayList<happening> global_data){
+
+        HashMap<String, searchKeyWord> searchVals = searcher.getToSearchForMap();
+        for(String s : searchVals.keySet())
+        {
+            String key = searchVals.get(s).getKey();
+
+            //Assume someone checks the box
+            searchVals.get(s).setSelected(true);
+            searchVals.put(s,searchVals.get(s));
+            searcher.setToSearchForMap(searchVals);
+            sideBar.add(key);
+            //filtered_data = searcher.searchAllSelected(global_data);
+
+
+        }
 
     }
 
@@ -153,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             TextView title;
             TextView dateTime;
             TextView cost;
-            ListView filter;
+            TextView sideBar;
         }
     }
 
