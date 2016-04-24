@@ -12,10 +12,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> cost = new ArrayList<String>();
     private ArrayList<String> description = new ArrayList<String>();
     private ArrayList<String > sideBar = new ArrayList<String>();
+    private searcher searcher = new searcher();
+
 
 
     @Override
@@ -64,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<happening> listOfHappenings = happBuild.buildHappeningArr();
             global_data = happBuild.buildHappeningArr();
 
-            searcher searcher = new searcher();
+
 
             ArrayList<happening> hasFood = searcher.getValidSearch("FOOD",listOfHappenings);
             ArrayList<happening> hasENGR = searcher.getValidSearch("ENGR", listOfHappenings);
             ArrayList<happening> hasConcert = searcher.getValidSearch("CONCERT", listOfHappenings);
 
-            /*
+
             HashMap<String, searchKeyWord> toSearch = searcher.getToSearchForMap();
             toSearch.get("FOOD").setSelected(true);
             toSearch.get("ENGR").setSelected(true);
@@ -83,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
             boolean test = true;
 
             allHapppeningToSearch = searcher.searchAllSelected(listOfHappenings);
-            */
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         filtered_data = global_data;
 
         ListView lv = (ListView) findViewById(R.id.listView);
-        ListView drawer = (ListView) findViewById(R.id.left_drawer);
+        ListView sideBar_layout = (ListView) findViewById(R.id.left_drawer);
 
 
 
@@ -109,20 +116,43 @@ public class MainActivity extends AppCompatActivity {
             description.add("Description: " + filtered_data.get(i).getDescription());
 
         }
+        keyUpdate();
+
+
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, urlLink));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, cost));
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, description));
+        lv.setAdapter(new MyListAdapter(this, R.layout.activity_main,sideBar));
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //if()
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 goToURI(urlLink.get(position),description.get(position));
             }
         });
 
+
+    }
+    public void keyUpdate(){
+
+        HashMap<String, searchKeyWord> searchVals = searcher.getToSearchForMap();
+        for(String s : searchVals.keySet())
+        {
+            String key = searchVals.get(s).getKey();
+
+            //Assume someone checks the box
+            searchVals.get(s).setSelected(true);
+            searchVals.put(s,searchVals.get(s));
+            searcher.setToSearchForMap(searchVals);
+            sideBar.add(key);
+            filtered_data = searcher.searchAllSelected(global_data);
+
+
+        }
 
     }
 
@@ -149,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder mainViewholder = null;
+            ViewHolder mainViewholder = null ;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
@@ -158,6 +188,9 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.dateTime = (TextView)convertView.findViewById(R.id.dateTimeText);
                 viewHolder.cost = (TextView)convertView.findViewById(R.id.costText);
                 viewHolder.description = (TextView)convertView.findViewById(R.id.descriptionText);
+
+                //viewHolder.sideBar = (TextView)convertView.findViewById(R.id.);
+
 
                 convertView.setTag(viewHolder);
             }
@@ -182,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
             TextView cost;
             TextView description;
             ListView filter;
+            TextView sideBar;
+
         }
     }
 
