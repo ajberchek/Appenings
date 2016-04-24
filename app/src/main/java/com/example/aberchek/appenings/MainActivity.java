@@ -224,9 +224,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.title.setText(titles.get(position) + "\n");
-            mainViewholder.dateTime.setText(dateTime.get(position));
-            mainViewholder.cost.setText(cost.get(position));
+            mainViewholder.title.setText("Title: " + titles.get(position) + "\n");
+            mainViewholder.dateTime.setText("When: " +dateTime.get(position));
+            mainViewholder.cost.setText("cost: " + cost.get(position));
 
 
 
