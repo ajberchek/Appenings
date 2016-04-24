@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ArrayList<happening> data =  new ArrayList<happening>();
     private ArrayList<String> titles = new ArrayList<String>();
+    private ArrayList<String> dateTime = new ArrayList<>();
 
 
     @Override
@@ -58,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListView lv = (ListView) findViewById(R.id.listView);
 
+
+
         for (int i = 0; i < data.size(); i++) {
             titles.add(data.get(i).getTitle());
+            dateTime.add(data.get(i).getTimeDate());
         }
         lv.setAdapter(new MyListAdapter(this, R.layout.list_item, titles));
+        lv.setAdapter(new MyListAdapter(this, R.layout.list_item, dateTime));
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,12 +112,14 @@ public class MainActivity extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                viewHolder.dateTime = (TextView)convertView.findViewById(R.id.dateTimeText);
 
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
 
             mainViewholder.title.setText(titles.get(position));
+            mainViewholder.dateTime.setText(dateTime.get(position));
             //mainViewholder.title.setText(getItem(position));
 
 
@@ -123,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         public class ViewHolder {
             TextView title;
             Button button;
+            TextView dateTime;
         }
     }
     @Override

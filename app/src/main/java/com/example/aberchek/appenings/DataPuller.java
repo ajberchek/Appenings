@@ -105,7 +105,7 @@ public class DataPuller extends AsyncTask<String, Void, Boolean>
             try
             {
                 //Change the below url
-                String dataUrl = "http://events.ucmerced.edu:7070/feeder/main/eventsFeed.do?f=y&sort=dtstart.utc:asc&fexpr=(categories.href!=%22/public/.bedework/categories/sys/Ongoing%22)%20and%20(entity_type=%22event%22%7Centity_type=%22todo%22)&skinName=list-json&start=20160301&end=20160430";
+                String dataUrl = "http://events.ucmerced.edu:7070/feeder/main/eventsFeed.do?f=y&sort=dtstart.utc:asc&fexpr=(categories.href!=%22/public/.bedework/categories/sys/Ongoing%22)%20and%20(entity_type=%22event%22%7Centity_type=%22todo%22)&skinName=list-json&count=100&start=20160201&end=20160430";
                 URL url = new URL(dataUrl);
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                 String str;
