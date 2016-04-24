@@ -31,6 +31,7 @@ public class searcher
         toSearchForMap.put("NATURALSCIENCE", new searchKeyWord("NATURALSCIENCE",naturalscienceSearches));
         toSearchForMap.put("SOCIALSCIENCE", new searchKeyWord("SOCIALSCIENCE", socialscienceSearches));
         toSearchForMap.put("ALL",new searchKeyWord("ALL",allString));
+        toSearchForMap.get("ALL").setSelected(true);
     }
 
     public HashMap<String, searchKeyWord> getToSearchForMap() {
@@ -115,6 +116,11 @@ public class searcher
 
     public ArrayList<happening> searchAllSelected(ArrayList<happening> toSearch)
     {
+        if(toSearchForMap.get("ALL").isSelected())
+        {
+            return toSearch;
+        }
+
         ArrayList<happening> toReturn = new ArrayList<happening>();
         for(String key : toSearchForMap.keySet())
         {

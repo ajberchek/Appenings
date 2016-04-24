@@ -110,33 +110,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(id == R.id.foodBtn)
-                {
-                    HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
-                    hm.get("FOOD").toggleSelected();
-                    search.setToSearchForMap(hm);
-                    filtered_data = search.searchAllSelected(global_data);
-                    filler();
-                }
-                else if(id == R.id.engrBtn)
-                {
-                    HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
-                    hm.get("ENGR").toggleSelected();
-                    search.setToSearchForMap(hm);
-                    filtered_data = search.searchAllSelected(global_data);
-                    filler();
-                }
-                else if(id == R.id.sportBtn)
-                {
-                    HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
-                    hm.get("SPORT").toggleSelected();
-                    search.setToSearchForMap(hm);
-                    filtered_data = search.searchAllSelected(global_data);
-                    filler();
-                }
-                else {
+
                     goToURI(urlLink.get(position));
-                }
+
             }
         });
 
@@ -157,6 +133,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cost.clear();
             filler();
         }
+        else if(v == (Button)findViewById(R.id.engrBtn))
+        {
+            HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+            hm.get("ENGR").toggleSelected();
+            search.setToSearchForMap(hm);
+            filtered_data = search.searchAllSelected(global_data);
+            titles.clear();
+            dateTime.clear();
+            urlLink.clear();
+            cost.clear();
+            filler();
+        }
+        else if(v == (Button)findViewById(R.id.sportBtn))
+        {
+            HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+            hm.get("SPORT").toggleSelected();
+            search.setToSearchForMap(hm);
+            filtered_data = search.searchAllSelected(global_data);
+            titles.clear();
+            dateTime.clear();
+            urlLink.clear();
+            cost.clear();
+            filler();
+        }
+        else if(v == (Button)findViewById(R.id.allBtn))
+        {
+            HashMap<String,searchKeyWord> hm = search.getToSearchForMap();
+            hm.get("ALL").toggleSelected();
+            search.setToSearchForMap(hm);
+            filtered_data = search.searchAllSelected(global_data);
+            titles.clear();
+            dateTime.clear();
+            urlLink.clear();
+            cost.clear();
+            filler();
+        }
+
     }
 
     public void filler(){
